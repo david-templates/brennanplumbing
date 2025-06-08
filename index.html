@@ -34,6 +34,30 @@
     <link rel="icon" type="image/png" sizes="32x32" href="favicon_io/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon_io/favicon-16x16.png">
     <link rel="manifest" href="favicon_io/site.webmanifest">
+    
+    <!-- Fix for viewport height on mobile browsers -->
+    <script>
+        // Calculate viewport height once when the page loads
+        let vh = window.innerHeight * 0.01;
+        // Set the value in the --vh custom property to the root of the document
+        document.documentElement.style.setProperty('--vh', `${vh}px`);
+        
+        // No resize event listener - fixed height based on initial page load
+    </script>
+    
+    <style>
+        /* Use the custom --vh variable instead of vh units */
+        .hero {
+            height: 100vh; /* Fallback for browsers that do not support Custom Properties */
+            height: calc(var(--vh, 1vh) * 100);
+        }
+        
+        /* Add this for any other elements that use vh units */
+        .thank-you-container {
+            height: 100vh; /* Fallback for browsers that do not support Custom Properties */
+            height: calc(var(--vh, 1vh) * 100);
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -224,7 +248,7 @@
                 </div>
                 <div class="contact-form">
                     <h3>Request a Free Quote</h3>
-                    <form action="https://formspree.io/f/xvgaeoqe" method="POST">
+                    <form action="https://formspree.io/f/" method="POST">
                         <input type="hidden" name="_subject" value="New Quote Request from Brennan Plumbing Website">
                         <input type="hidden" name="_next" value="https://brennanplumbing.ie/thanks.html">
                         <!-- Honeypot field to prevent spam -->
